@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Настройки — Relay</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="api-base" content="https://ragshata-relay-eb9d.twc1.net" />
+    <link rel="stylesheet" href="/static/panel.css?v=4" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="title"><span class="brand-dot"></span>Настройки Relay</div>
+      <div class="header-right">
+        <a class="btn btn-ghost" href="/panel" title="Назад в панель"
+          >← Назад в панель</a
+        >
+      </div>
+    </div>
+
+    <div class="wrap">
+      <!-- Прокси-учётки -->
+      <div class="card" style="margin-bottom: 16px">
+        <div style="font-weight: 700; margin-bottom: 8px">
+          Прокси-учётные данные
+        </div>
+        <div class="muted" style="margin-bottom: 10px">
+          Эти учётки используются и для <b>SOCKS5</b>, и для
+          <b>HTTP CONNECT</b>.
+        </div>
+        <div class="form-grid">
+          <label>Логин</label>
+          <input id="proxyUser" class="input" placeholder="user" />
+          <label>Пароль</label>
+          <input
+            id="proxyPass"
+            class="input"
+            placeholder="pass"
+            type="password"
+          />
+        </div>
+        <div style="margin-top: 10px">
+          <button id="btnSaveProxy" class="btn btn-primary">
+            Сохранить прокси-учётки
+          </button>
+        </div>
+      </div>
+
+      <!-- Панель-учётки -->
+      <div class="card" style="margin-bottom: 16px">
+        <div style="font-weight: 700; margin-bottom: 8px">
+          Учётные данные панели
+        </div>
+        <div class="form-grid">
+          <label>Логин</label>
+          <input id="panelUser" class="input" placeholder="panel user" />
+          <label>Пароль</label>
+          <input
+            id="panelPass"
+            class="input"
+            placeholder="panel pass"
+            type="password"
+          />
+        </div>
+        <div style="margin-top: 10px">
+          <button id="btnSavePanel" class="btn btn-primary">
+            Сохранить логин/пароль панели
+          </button>
+        </div>
+      </div>
+
+      <!-- RotationLink (локально в браузере) -->
+      <div class="card">
+        <div style="font-weight: 700; margin-bottom: 8px">RotationLink</div>
+        <div class="muted" style="margin-bottom: 10px">
+          <b>rotate_token</b> хранится только <b>в вашем браузере</b> и
+          используется кнопкой «Сменить IP» на панели.
+        </div>
+        <div class="form-grid">
+          <label>rotate_token</label>
+          <input
+            id="rotateToken"
+            class="input"
+            placeholder="например: my_secret_token"
+          />
+        </div>
+        <div style="margin-top: 10px; display: flex; gap: 8px">
+          <button id="btnSaveRotate" class="btn btn-primary">
+            Сохранить токен
+          </button>
+          <button id="btnClearRotate" class="btn btn-ghost">Очистить</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" hidden></div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal" hidden>
+      <div class="modal-card">
+        <div class="modal-title">Вход в панель</div>
+        <div class="modal-body">
+          <input id="loginUser" class="input" placeholder="Логин" />
+          <input
+            id="loginPass"
+            class="input"
+            placeholder="Пароль"
+            type="password"
+          />
+        </div>
+        <div class="modal-actions">
+          <button id="btnLogin" class="btn btn-primary">Войти</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- v=4 чтобы перебить кэш -->
+    <script src="/static/settings.js?v=4" defer></script>
+  </body>
+</html>

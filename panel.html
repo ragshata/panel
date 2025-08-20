@@ -1,0 +1,109 @@
+  <!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Relay Server Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="api-base" content="https://ragshata-relay-eb9d.twc1.net">
+    <link rel="stylesheet" href="/static/panel.css?v=4" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="title">
+        <span class="brand-dot"></span>Relay Server Dashboard
+      </div>
+      <div class="header-right">
+        <!-- Кнопка смены IP -->
+        <button
+          id="btnRotate"
+          class="btn btn-primary"
+          title="Сменить IP у подключённых телефонов"
+          type="button"
+        >
+          <span class="btn-ico">⟳</span>
+          Сменить IP
+        </button>
+
+        <!-- Ссылка на настройки -->
+        <a class="btn btn-ghost" href="/static/settings.html" title="Настройки">
+          <span class="btn-ico">⚙</span>
+          Настройки
+        </a>
+
+        <!-- Статистика скорости -->
+        <div class="rate-badge" id="totalRate">↑ 0 B/s · ↓ 0 B/s</div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="card">
+        <div class="row">
+          <div>
+            <div style="font-weight: 700">Подключённые телефоны</div>
+            <ul id="phonesList" class="phones"></ul>
+          </div>
+          <div id="updatedAt" class="updated">–</div>
+        </div>
+
+        <div style="margin-top: 18px; font-weight: 700">
+          Клиенты (SOCKS / HTTP)
+        </div>
+        <div class="filters">
+          <input id="fPhone" class="input" placeholder="Телефон ID" />
+          <input id="fIP" class="input" placeholder="IP клиента" />
+          <input id="fStream" class="input" placeholder="Stream ID" />
+          <button class="btn btn-secondary" id="btnResetFilters" type="button">
+            <span class="btn-ico">↺</span> Сбросить
+          </button>
+          <div class="updated" id="filterInfo" style="margin-left: auto">
+            Фильтр: нет
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Stream ID</th>
+              <th>Телефон</th>
+              <th>IP</th>
+              <th>Порт/Протокол</th>
+              <th>Время</th>
+              <th>↑ bytes</th>
+              <th>↓ bytes</th>
+            </tr>
+          </thead>
+          <tbody id="clientsTbody"></tbody>
+        </table>
+        <div class="foot" id="foundInfo"></div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" hidden></div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal" hidden>
+      <div class="modal-card">
+        <div class="modal-title">Вход в панель</div>
+        <div class="modal-body">
+          <input id="loginUser" class="input" placeholder="Логин" />
+          <input
+            id="loginPass"
+            class="input"
+            placeholder="Пароль"
+            type="password"
+          />
+        </div>
+        <div class="modal-actions">
+          <button id="btnLogin" class="btn btn-primary" type="button">
+            Войти
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- v=4 чтобы перебить кэш -->
+    <script src="/static/panel.js?v=4" defer></script>
+  </body>
+</html>
