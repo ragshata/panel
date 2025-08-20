@@ -1,11 +1,13 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <title>Relay Server Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="api-base" content="https://ragshata-relay-eb9d.twc1.net">
-    <link rel="stylesheet" href="/static/panel.css?v=4" />
+    <!-- домен API -->
+    <meta name="api-base" content="https://ragshata-relay-eb9d.twc1.net" />
+    <!-- локальные файлы панели -->
+    <link rel="stylesheet" href="panel.css?v=4" />
   </head>
   <body>
     <div class="header">
@@ -13,7 +15,6 @@
         <span class="brand-dot"></span>Relay Server Dashboard
       </div>
       <div class="header-right">
-        <!-- Кнопка смены IP -->
         <button
           id="btnRotate"
           class="btn btn-primary"
@@ -24,13 +25,12 @@
           Сменить IP
         </button>
 
-        <!-- Ссылка на настройки -->
-        <a class="btn btn-ghost" href="/static/settings.html" title="Настройки">
-          <span class="btn-ico">⚙</span>
+        <!-- Ссылка на локальную страницу настроек панели -->
+        <a class="btn btn-ghost" href="settings.html" title="Настройки">
+          <span class="btn-ico">⚙️</span>
           Настройки
         </a>
 
-        <!-- Статистика скорости -->
         <div class="rate-badge" id="totalRate">↑ 0 B/s · ↓ 0 B/s</div>
       </div>
     </div>
@@ -79,10 +79,8 @@
       </div>
     </div>
 
-    <!-- Toast -->
     <div id="toast" class="toast" hidden></div>
 
-    <!-- Login Modal -->
     <div id="loginModal" class="modal" hidden>
       <div class="modal-card">
         <div class="modal-title">Вход в панель</div>
@@ -103,7 +101,7 @@
       </div>
     </div>
 
-    <!-- v=4 чтобы перебить кэш -->
-    <script src="/static/panel.js?v=4" defer></script>
+    <!-- локальный JS панели -->
+    <script src="panel.js?v=4" defer></script>
   </body>
 </html>

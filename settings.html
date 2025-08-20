@@ -4,14 +4,17 @@
     <meta charset="UTF-8" />
     <title>Настройки — Relay</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- домен API -->
     <meta name="api-base" content="https://ragshata-relay-eb9d.twc1.net" />
-    <link rel="stylesheet" href="/static/panel.css?v=4" />
+    <!-- локальные файлы панели -->
+    <link rel="stylesheet" href="panel.css?v=4" />
   </head>
   <body>
     <div class="header">
       <div class="title"><span class="brand-dot"></span>Настройки Relay</div>
       <div class="header-right">
-        <a class="btn btn-ghost" href="/panel" title="Назад в панель"
+        <!-- локальная ссылка назад -->
+        <a class="btn btn-ghost" href="panel.html" title="Назад в панель"
           >← Назад в панель</a
         >
       </div>
@@ -92,10 +95,8 @@
       </div>
     </div>
 
-    <!-- Toast -->
     <div id="toast" class="toast" hidden></div>
 
-    <!-- Login Modal -->
     <div id="loginModal" class="modal" hidden>
       <div class="modal-card">
         <div class="modal-title">Вход в панель</div>
@@ -114,7 +115,7 @@
       </div>
     </div>
 
-    <!-- v=4 чтобы перебить кэш -->
-    <script src="/static/settings.js?v=4" defer></script>
+    <!-- локальный JS настроек -->
+    <script src="settings.js?v=4" defer></script>
   </body>
 </html>
