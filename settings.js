@@ -51,16 +51,14 @@ function clearPanelAuth() {
   sessionStorage.removeItem("panelAuth");
 }
 function getAuthHeader() {
-  const tok = getPanelAuth();
-  return tok ? { Authorization: `Basic ${tok}` } : {};
+  return {}; 
 }
 
 /* Модалка логина — ЯВНО управляем display, чтобы CSS не перебивал hidden */
-function openLoginModal() {
+function openLoginModal() { closeLoginModal(); }
+function closeLoginModal() {
   const m = document.getElementById("loginModal");
-  if (!m) return;
-  m.hidden = false;
-  m.style.display = "flex"; // важно!
+  if (m) { m.hidden = true; m.style.display = "none"; }
 }
 function closeLoginModal() {
   const m = document.getElementById("loginModal");
@@ -71,18 +69,12 @@ function closeLoginModal() {
 
 /* ========= fetch helpers ========= */
 async function handleJsonResponse(r) {
-  if (r.status === 401) {
-    openLoginModal();
-    throw new Error("401");
-  }
   if (!r.ok) {
-    let t = "";
-    try { t = await r.text(); } catch {}
-    throw new Error(t || `HTTP ${r.status}`);
+    const text = await r.text().catch(() => "");
+    throw new Error("http " + r.status + (text ? (": " + text) : ""));
   }
   return r.json();
 }
-
 async function apiGet(url) {
   const r = await fetch(abs(url), {
     method: "GET",
@@ -107,22 +99,8 @@ async function apiPost(url, body) {
 
 /* ========= ensure auth ========= */
 async function ensureAuthOrAsk() {
-  try {
-    const r = await fetch(abs("/status"), {
-      headers: getAuthHeader(),
-      mode: "cors",
-      cache: "no-store",
-      credentials: "omit",
-    });
-    if (r.status === 401) {
-      openLoginModal();
-      return Promise.reject(new Error("need auth"));
-    }
-    return true;
-  } catch {
-    openLoginModal();
-    return Promise.reject(new Error("need auth"));
-  }
+  closeLoginModal();
+  return true;
 }
 
 /* ========= rotation token (local only) ========= */

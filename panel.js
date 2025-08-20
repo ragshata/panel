@@ -56,15 +56,12 @@ function getAuthB64() {
   return b64 || "";
 }
 function getAuthHeaderOrNull() {
-  const b64 = getAuthB64();
-  return b64 ? `Basic ${b64}` : null;
+  return null; // никаких Basic
 }
 
 /* Единая обёртка над fetch: автоматически подкладываем Authorization */
 async function api(path, opts = {}) {
   const headers = new Headers(opts.headers || {});
-  const auth = getAuthHeaderOrNull();
-  if (auth) headers.set("Authorization", auth);
   const res = await fetch(abs(path), {
     ...opts,
     headers,
@@ -72,10 +69,7 @@ async function api(path, opts = {}) {
     cache: "no-store",
     credentials: "omit",
   });
-  if (res.status === 401) {
-    // нет/неверный логин — показать модалку
-    showLogin();
-  }
+  // Никакого showLogin() на 401 — просто возвращаем ответ как есть
   return res;
 }
 
@@ -220,21 +214,13 @@ async function fetchAll() {
 }
 
 /* ========= Login modal ========= */
-function showLogin() {
-  const m = $("loginModal");
-  if (m) { m.hidden = false; m.style.display = "flex"; }
-}
+function showLogin() { hideLogin(); }
 function hideLogin() {
-  const m = $("loginModal");
-  if (m) { m.hidden = true;  m.style.display = "none"; }
+  const m = document.getElementById("loginModal");
+  if (m) { m.hidden = true; m.style.display = "none"; }
 }
 
-async function testAuth() {
-  try {
-    const r = await api("/clients");
-    return r.ok;
-  } catch { return false; }
-}
+async function testAuth() { return true; }
 
 function bindLogin() {
   const btn = $("btnLogin");
@@ -259,12 +245,7 @@ function bindLogin() {
     el && el.addEventListener("keydown", (e) => e.key === "Enter" && doLogin());
   });
 }
-
-async function ensureAuthOrAsk() {
-  if (await testAuth()) { hideLogin(); return true; }
-  showLogin();
-  return false;
-}
+async function ensureAuthOrAsk() { hideLogin(); return true; }
 
 /* ========= Filters ========= */
 function bindFilters() {
